@@ -30,7 +30,7 @@ Run dev across all workspaces:
 pnpm dev
 ```
 
-Build all apps and packages:
+Build all workspaces:
 
 ```bash
 pnpm build
