@@ -24,7 +24,7 @@ Install dependencies:
 pnpm install
 ```
 
-Run all apps in development mode:
+Run dev across all workspaces:
 
 ```bash
 pnpm dev
