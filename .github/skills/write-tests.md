@@ -53,13 +53,7 @@ Use this playbook when adding, improving, or fixing tests for any workspace.
 
 ## Test Expectations by Change Type
 
-| Change Type    | Required Tests                                                  |
-| -------------- | --------------------------------------------------------------- |
-| New feature    | Unit tests for logic; integration test for public API surface   |
-| Bug fix        | Regression test that would have caught the bug                  |
-| Refactor       | Existing tests pass; new tests added where coverage was missing |
-| Perf change    | Benchmark or metric proving improvement                         |
-| Docs / CI only | No new tests required                                           |
+See the canonical guidance in [docs/ai/how-we-work.md](../how-we-work.md#test-expectations-by-change-type) for the latest expectations by change type.
 
 ---
 
