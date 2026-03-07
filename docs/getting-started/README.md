@@ -25,13 +25,14 @@ pnpm install
 
 ## Environment Setup
 
-The repository ships a single `.env.example` at the root that documents every required variable across all workspaces. Copy it to `.env.local` and fill in your local values before starting any app:
+The repository ships a single `.env.example` at the root that documents every required variable across all workspaces. Copy it into each workspace directory you intend to run — Next.js and Expo read `.env*` files from their own workspace directory, not from the monorepo root:
 
 ```bash
-cp .env.example .env.local
+cp .env.example apps/web/.env.local
+cp .env.example apps/mobile/.env.local
 ```
 
-Open `.env.local` and replace the placeholder values. Variables marked `# required` must be set before the app will start. Obtain any secret values from a team member or your team's shared secret manager.
+Open each `.env.local` and replace the placeholder values. Variables marked `# required` must be set before the app will start. Obtain any secret values from a team member or your team's shared secret manager.
 
 > See [docs/standards/env-strategy.md](../standards/env-strategy.md) for the full environment variable policy, naming conventions, and security rules.
 

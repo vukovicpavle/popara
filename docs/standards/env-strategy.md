@@ -13,19 +13,19 @@ This document establishes a single, consistent workflow for environment variable
 
 ## Variable Classification
 
-Every environment variable belongs to exactly one class:
+Every environment variable is classified as either **Public** or **Server**, and some server variables are additionally marked as **Secret**:
 
-| Class      | Description                                                         | Examples                                         |
-| ---------- | ------------------------------------------------------------------- | ------------------------------------------------ |
-| **Public** | Safe to expose to the client/browser or mobile bundle.              | `NEXT_PUBLIC_API_URL`, `EXPO_PUBLIC_APP_NAME`    |
-| **Server** | Used only by server-side code; never sent to the client.            | `DATABASE_URL`, `JWT_SECRET`, `SMTP_HOST`        |
-| **Secret** | Sensitive credentials that must never appear in logs or plain text. | `STRIPE_SECRET_KEY`, `OPENAI_API_KEY`, `DB_PASS` |
+| Class      | Description                                                                         | Examples                                         |
+| ---------- | ----------------------------------------------------------------------------------- | ------------------------------------------------ |
+| **Public** | Safe to expose to the client/browser or mobile bundle.                              | `NEXT_PUBLIC_API_URL`, `EXPO_PUBLIC_APP_NAME`    |
+| **Server** | Used only by server-side code; never sent to the client.                            | `DATABASE_URL`, `JWT_SECRET`, `SMTP_HOST`        |
+| **Secret** | Server-only and sensitive credentials that must never appear in logs or plain text. | `STRIPE_SECRET_KEY`, `OPENAI_API_KEY`, `DB_PASS` |
 
 Rules:
 
 1. **Public variables** must use the runtime-required prefix (`NEXT_PUBLIC_` for Next.js, `EXPO_PUBLIC_` for Expo).
 2. **Server variables** must not carry a public prefix.
-3. **Secret variables** are a sub-type of server variables — apply the same prefix rules and additionally restrict access in CI/CD using secret stores (not plain variables).
+3. **Secret variables** are server variables — apply the same prefix rules and additionally restrict access in CI/CD using secret stores (not plain variables).
 
 ## Naming Conventions
 
@@ -60,7 +60,8 @@ A single `.env.example` lives at the **repository root** and documents all varia
 
 ```
 .env.example            # ← single committed template for the entire monorepo
-.env.local              # ← developer-local overrides (git-ignored)
+apps/web/.env.local     # ← developer-local overrides for Next.js (git-ignored)
+apps/mobile/.env.local  # ← developer-local overrides for Expo (git-ignored)
 ```
 
 Per-workspace section headers inside `.env.example` make it easy to know which variables belong to which app:
@@ -74,7 +75,7 @@ DATABASE_URL=postgresql://...
 EXPO_PUBLIC_API_URL=http://localhost:4000
 ```
 
-Root-level `.env.local` (copied from `.env.example`) is the single developer override file. Apps load variables from it automatically via their respective runtimes.
+> **Important:** Next.js reads `.env*` files from the `apps/web/` directory, and Expo reads from `apps/mobile/`. The monorepo root is **not** in their search path. Copy the root template into each workspace directory before starting development (see [Onboarding](#onboarding-local-environment-setup)).
 
 ### Load Precedence
 
@@ -91,10 +92,10 @@ See [Next.js docs](https://nextjs.org/docs/app/building-your-application/configu
 **Expo (apps/mobile)**
 
 ```
-.env             → .env.local → .env.<APP_ENV>  → .env.<APP_ENV>.local
+.env             → .env.local → .env.<NODE_ENV> → .env.<NODE_ENV>.local
 ```
 
-Expo reads variables at build time via `process.env`. Only `EXPO_PUBLIC_*` variables are bundled into the client. Use [expo-constants](https://docs.expo.dev/versions/latest/sdk/constants/) or a custom `config/env.ts` module to access them.
+Expo SDK 49+ loads variables at build time using `dotenv`. Only `EXPO_PUBLIC_*` variables are bundled into the client. Use [expo-constants](https://docs.expo.dev/versions/latest/sdk/constants/) or a custom `config/env.ts` module to access them.
 
 **API / Node services**
 
@@ -138,7 +139,7 @@ Variables are loaded explicitly via `dotenv` or the hosting platform's environme
 
 ## Security Guardrails
 
-1. **No secrets in source control.** The root `.gitignore` ignores `.env`, `.env.local`, and `.env.*.local`. Never override these rules.
+1. **No secrets in source control.** The root `.gitignore` ignores all `.env*` files except `.env.example` (including `.env`, `.env.local`, `.env.staging`, `.env.production`, and `.env.*.local`). Never override these rules.
 2. **`.env.example` contains only placeholder values** — never real credentials, even for development.
 3. **Least privilege.** CI jobs receive only the secrets they need. Do not define all secrets in every workflow.
 4. **Secrets are not echoed.** CI pipelines must not `echo` or print secret variables. GitHub Actions masks secrets automatically, but avoid logging `process.env` objects.
@@ -189,13 +190,17 @@ Staging and production values are managed entirely in the hosting platform (e.g.
    pnpm install
    ```
 
-2. Copy the root example env file to `.env.local`:
+2. Copy the root template into each workspace you intend to run:
 
    ```bash
-   cp .env.example .env.local
+   cp .env.example apps/web/.env.local
+   cp .env.example apps/mobile/.env.local
+   # cp .env.example apps/api/.env.local  # when API workspace is added
    ```
 
-3. Open the root `.env.local` file and replace placeholder values with real ones for your local environment. Values marked `# required` must be set before the app will start.
+   > Each file can be trimmed to keep only the variables relevant to that workspace, but leaving unused variables in place is harmless since each runtime ignores variables it doesn't recognise.
+
+3. Open each workspace's `.env.local` and replace placeholder values with real ones for your local environment. Values marked `# required` must be set before the app will start.
 
 4. Obtain any secret values from a trusted team member or your team's shared secret manager. **Do not ask for secrets over unencrypted channels.**
 
@@ -206,7 +211,7 @@ Staging and production values are managed entirely in the hosting platform (e.g.
    pnpm --filter mobile dev
    ```
 
-> **Never commit your `.env.local` files.** Git will ignore them automatically, but double-check with `git status` before committing.
+> **Never commit your `.env.local` files.** Git will ignore them automatically (they are in `.gitignore`), but double-check with `git status` before committing.
 
 ## Checklist for Adding a New Variable
 
@@ -222,7 +227,7 @@ Staging and production values are managed entirely in the hosting platform (e.g.
 
 | Symptom                                     | Likely Cause                                      | Fix                                                       |
 | ------------------------------------------- | ------------------------------------------------- | --------------------------------------------------------- |
-| `undefined` for a `NEXT_PUBLIC_*` var       | Variable not set in `.env.local`                  | Add it to `.env.local` from the root `.env.example`       |
+| `undefined` for a `NEXT_PUBLIC_*` var       | Variable not set in `apps/web/.env.local`         | Copy from root `.env.example` to `apps/web/.env.local`    |
 | Variable available in server but not client | Missing `NEXT_PUBLIC_` / `EXPO_PUBLIC_` prefix    | Rename the variable with the correct prefix               |
 | Build fails on CI with missing var          | Variable not added to GitHub Actions secrets/vars | Add it under repository Settings → Secrets and variables  |
 | App crashes at startup with env error       | Required variable missing                         | Check root `.env.example` for required vars and set them  |

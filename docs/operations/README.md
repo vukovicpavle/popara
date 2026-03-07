@@ -6,24 +6,27 @@ Deployment, environment configuration, monitoring, and incident response.
 
 ## Environment Configuration
 
-Environment variables are managed per-workspace using `.env` files (never committed to source control) for local development. See [docs/standards/env-strategy.md](../standards/env-strategy.md) for the complete policy.
+Environment variables are managed using `.env` files (never committed to source control) for local development. A single root `.env.example` serves as the committed template for all workspaces. See [docs/standards/env-strategy.md](../standards/env-strategy.md) for the complete policy.
 
 ### File Conventions
 
-| File              | Committed | Purpose                                             |
-| ----------------- | --------- | --------------------------------------------------- |
-| `.env.example`    | ✅ Yes    | Documented template — every workspace must have one |
-| `.env.local`      | ❌ No     | Developer-local overrides                           |
-| `.env.staging`    | ❌ No     | Staging values — platform-managed                   |
-| `.env.production` | ❌ No     | Production values — platform-managed                |
+| File                     | Committed | Purpose                                                                 |
+| ------------------------ | --------- | ----------------------------------------------------------------------- |
+| `.env.example`           | ✅ Yes    | Single root-level template documenting all variables for all workspaces |
+| `<workspace>/.env.local` | ❌ No     | Developer-local overrides, copied from root `.env.example`              |
+| `.env.staging`           | ❌ No     | Staging values — platform-managed                                       |
+| `.env.production`        | ❌ No     | Production values — platform-managed                                    |
 
 ### Local Development
 
-Copy `.env.example` to `.env.local` at the repository root, then fill in real values:
+Copy the root `.env.example` template into each workspace you intend to run, then fill in real values:
 
 ```bash
-cp .env.example .env.local
+cp .env.example apps/web/.env.local
+cp .env.example apps/mobile/.env.local
 ```
+
+> Next.js reads `.env*` files from `apps/web/` and Expo reads from `apps/mobile/`. A root-level `.env.local` is not automatically picked up by either runtime.
 
 ### CI
 
