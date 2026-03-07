@@ -5,15 +5,15 @@ Start here before picking up any task.
 
 ## Contents
 
-| File / Directory                                               | Purpose                                             |
-| -------------------------------------------------------------- | --------------------------------------------------- |
-| [`how-we-work.md`](./how-we-work.md)                           | Core conventions: structure, style, validation flow |
-| [`skills/implement-feature.md`](./skills/implement-feature.md) | Playbook — add a new feature                        |
-| [`skills/fix-bug.md`](./skills/fix-bug.md)                     | Playbook — diagnose and fix a bug                   |
-| [`skills/write-tests.md`](./skills/write-tests.md)             | Playbook — write or improve tests                   |
-| [`skills/update-docs.md`](./skills/update-docs.md)             | Playbook — update documentation                     |
-| [`skills/safe-refactor.md`](./skills/safe-refactor.md)         | Playbook — safe, behaviour-preserving refactors     |
-| [`skills/issue-triage.md`](./skills/issue-triage.md)           | Playbook — triage and scope a GitHub issue          |
+| File / Directory                                                           | Purpose                                             |
+| -------------------------------------------------------------------------- | --------------------------------------------------- |
+| [`how-we-work.md`](./how-we-work.md)                                       | Core conventions: structure, style, validation flow |
+| [`skills/implement-feature.md`](../../.github/skills/implement-feature.md) | Playbook — add a new feature                        |
+| [`skills/fix-bug.md`](../../.github/skills/fix-bug.md)                     | Playbook — diagnose and fix a bug                   |
+| [`skills/write-tests.md`](../../.github/skills/write-tests.md)             | Playbook — write or improve tests                   |
+| [`skills/update-docs.md`](../../.github/skills/update-docs.md)             | Playbook — update documentation                     |
+| [`skills/safe-refactor.md`](../../.github/skills/safe-refactor.md)         | Playbook — safe, behaviour-preserving refactors     |
+| [`skills/issue-triage.md`](../../.github/skills/issue-triage.md)           | Playbook — triage and scope a GitHub issue          |
 
 The short-form summary for GitHub Copilot lives in [`.github/copilot-instructions.md`](../../.github/copilot-instructions.md).
 

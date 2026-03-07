@@ -121,12 +121,12 @@ Commit messages are validated:
 This repository includes agent guidelines for AI-assisted development.
 See [`docs/ai/README.md`](./docs/ai/README.md) for the full index, or jump straight to a playbook:
 
-- [Implement a feature](./docs/ai/skills/implement-feature.md)
-- [Fix a bug](./docs/ai/skills/fix-bug.md)
-- [Write tests](./docs/ai/skills/write-tests.md)
-- [Update docs](./docs/ai/skills/update-docs.md)
-- [Safe refactor](./docs/ai/skills/safe-refactor.md)
-- [Triage an issue](./docs/ai/skills/issue-triage.md)
+- [Implement a feature](./.github/skills/implement-feature.md)
+- [Fix a bug](./.github/skills/fix-bug.md)
+- [Write tests](./.github/skills/write-tests.md)
+- [Update docs](./.github/skills/update-docs.md)
+- [Safe refactor](./.github/skills/safe-refactor.md)
+- [Triage an issue](./.github/skills/issue-triage.md)
 
 ## Tech Stack
 

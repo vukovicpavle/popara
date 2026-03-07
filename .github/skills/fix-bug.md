@@ -40,7 +40,7 @@ Use this playbook when diagnosing and resolving a defect.
   fix(<scope>): <short description of what was fixed>
   ```
 
-- [ ] **Produce agent output** using the [Output Contract](../how-we-work.md#agent-output-contract).
+- [ ] **Produce agent output** using the [Output Contract](../../docs/ai/how-we-work.md#agent-output-contract).
 
 ---
 

@@ -22,7 +22,7 @@ Use this playbook when adding new user-visible functionality to any workspace.
   - Flag breaking changes with `feat!` commit type.
 
 - [ ] **Implement**
-  - Follow naming conventions (see [`how-we-work.md`](../how-we-work.md#naming)).
+  - Follow naming conventions (see [`how-we-work.md`](../../docs/ai/how-we-work.md#naming)).
   - Keep functions small and single-purpose.
   - Export only what consumers need; keep internals private.
 
@@ -45,7 +45,7 @@ Use this playbook when adding new user-visible functionality to any workspace.
   feat(<scope>): <short description>
   ```
 
-- [ ] **Produce agent output** using the [Output Contract](../how-we-work.md#agent-output-contract).
+- [ ] **Produce agent output** using the [Output Contract](../../docs/ai/how-we-work.md#agent-output-contract).
 
 ---
 

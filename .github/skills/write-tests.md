@@ -47,7 +47,7 @@ Use this playbook when adding, improving, or fixing tests for any workspace.
   test(<scope>): <short description>
   ```
 
-- [ ] **Produce agent output** using the [Output Contract](../how-we-work.md#agent-output-contract).
+- [ ] **Produce agent output** using the [Output Contract](../../docs/ai/how-we-work.md#agent-output-contract).
 
 ---
 

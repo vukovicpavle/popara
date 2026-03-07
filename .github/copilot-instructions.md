@@ -54,13 +54,13 @@ Every agent response **must** include:
 
 ## Quick-Reference Playbooks
 
-| Task              | Playbook                                                                      |
-| ----------------- | ----------------------------------------------------------------------------- |
-| Implement feature | [docs/ai/skills/implement-feature.md](../docs/ai/skills/implement-feature.md) |
-| Fix a bug         | [docs/ai/skills/fix-bug.md](../docs/ai/skills/fix-bug.md)                     |
-| Write tests       | [docs/ai/skills/write-tests.md](../docs/ai/skills/write-tests.md)             |
-| Update docs       | [docs/ai/skills/update-docs.md](../docs/ai/skills/update-docs.md)             |
-| Safe refactor     | [docs/ai/skills/safe-refactor.md](../docs/ai/skills/safe-refactor.md)         |
-| Triage an issue   | [docs/ai/skills/issue-triage.md](../docs/ai/skills/issue-triage.md)           |
+| Task              | Playbook                                                             |
+| ----------------- | -------------------------------------------------------------------- |
+| Implement feature | [.github/skills/implement-feature.md](./skills/implement-feature.md) |
+| Fix a bug         | [.github/skills/fix-bug.md](./skills/fix-bug.md)                     |
+| Write tests       | [.github/skills/write-tests.md](./skills/write-tests.md)             |
+| Update docs       | [.github/skills/update-docs.md](./skills/update-docs.md)             |
+| Safe refactor     | [.github/skills/safe-refactor.md](./skills/safe-refactor.md)         |
+| Triage an issue   | [.github/skills/issue-triage.md](./skills/issue-triage.md)           |
 
 See [`docs/ai/README.md`](../docs/ai/README.md) for the full index.
