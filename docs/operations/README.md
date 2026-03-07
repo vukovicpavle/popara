@@ -10,20 +10,19 @@ Environment variables are managed per-workspace using `.env` files (never commit
 
 ### File Conventions
 
-| File              | Committed | Purpose                                              |
-| ----------------- | --------- | ---------------------------------------------------- |
-| `.env.example`    | ✅ Yes    | Documented template — every workspace must have one  |
-| `.env.local`      | ❌ No     | Developer-local overrides                            |
-| `.env.staging`    | ❌ No     | Staging values — platform-managed                    |
-| `.env.production` | ❌ No     | Production values — platform-managed                 |
+| File              | Committed | Purpose                                             |
+| ----------------- | --------- | --------------------------------------------------- |
+| `.env.example`    | ✅ Yes    | Documented template — every workspace must have one |
+| `.env.local`      | ❌ No     | Developer-local overrides                           |
+| `.env.staging`    | ❌ No     | Staging values — platform-managed                   |
+| `.env.production` | ❌ No     | Production values — platform-managed                |
 
 ### Local Development
 
-Copy `.env.example` to `.env.local` in each workspace you intend to run, then fill in real values:
+Copy `.env.example` to `.env.local` at the repository root, then fill in real values:
 
 ```bash
-cp apps/web/.env.example apps/web/.env.local
-cp apps/mobile/.env.example apps/mobile/.env.local
+cp .env.example .env.local
 ```
 
 ### CI

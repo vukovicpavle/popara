@@ -9,17 +9,17 @@ This document establishes a single, consistent workflow for environment variable
 - Secrets are never committed to source control.
 - Configuration is explicit and discoverable.
 - Local, CI, and production environments each have a clear source of truth.
-- New contributors can get up and running from `.env.example` files alone.
+- New contributors can get up and running from the root `.env.example` file alone.
 
 ## Variable Classification
 
 Every environment variable belongs to exactly one class:
 
-| Class          | Description                                                         | Examples                                          |
-| -------------- | ------------------------------------------------------------------- | ------------------------------------------------- |
-| **Public**     | Safe to expose to the client/browser or mobile bundle.              | `NEXT_PUBLIC_API_URL`, `EXPO_PUBLIC_APP_NAME`     |
-| **Server**     | Used only by server-side code; never sent to the client.            | `DATABASE_URL`, `JWT_SECRET`, `SMTP_HOST`         |
-| **Secret**     | Sensitive credentials that must never appear in logs or plain text. | `STRIPE_SECRET_KEY`, `OPENAI_API_KEY`, `DB_PASS`  |
+| Class      | Description                                                         | Examples                                         |
+| ---------- | ------------------------------------------------------------------- | ------------------------------------------------ |
+| **Public** | Safe to expose to the client/browser or mobile bundle.              | `NEXT_PUBLIC_API_URL`, `EXPO_PUBLIC_APP_NAME`    |
+| **Server** | Used only by server-side code; never sent to the client.            | `DATABASE_URL`, `JWT_SECRET`, `SMTP_HOST`        |
+| **Secret** | Sensitive credentials that must never appear in logs or plain text. | `STRIPE_SECRET_KEY`, `OPENAI_API_KEY`, `DB_PASS` |
 
 Rules:
 
@@ -29,13 +29,14 @@ Rules:
 
 ## Naming Conventions
 
-| Rule                                | Example                         |
-| ----------------------------------- | ------------------------------- |
-| `UPPER_SNAKE_CASE`                  | `API_BASE_URL`                  |
-| Runtime prefix where required       | `NEXT_PUBLIC_API_URL`           |
-| Scope prefix for workspace clarity  | `WEB_FEATURE_FLAGS`, `API_PORT` |
-| No abbreviations without context    | `DATABASE_URL` not `DB_U`       |
-| Boolean flags use `true` / `false`  | `FEATURE_DARK_MODE=true`        |
+| Rule                               | Example                                             |
+| ---------------------------------- | --------------------------------------------------- |
+| `UPPER_SNAKE_CASE`                 | `API_BASE_URL`                                      |
+| Runtime prefix where required      | `NEXT_PUBLIC_API_URL`                               |
+| Scope prefix for workspace clarity | `WEB_FEATURE_FLAGS`, `API_PORT`                     |
+| Shared cross-workspace variables   | `APP_ENV` — no scope prefix; used by all workspaces |
+| No abbreviations without context   | `DATABASE_URL` not `DB_U`                           |
+| Boolean flags use `true` / `false` | `FEATURE_DARK_MODE=true`                            |
 
 Avoid generic names like `SECRET`, `KEY`, or `TOKEN` without context — always qualify them (e.g., `STRIPE_SECRET_KEY`).
 
@@ -43,27 +44,37 @@ Avoid generic names like `SECRET`, `KEY`, or `TOKEN` without context — always 
 
 ### File Naming and Purpose
 
-| File                   | Committed | Purpose                                                              |
-| ---------------------- | --------- | -------------------------------------------------------------------- |
-| `.env.example`         | ✅ Yes    | Documents all variables with placeholder values. Required.           |
-| `.env.local`           | ❌ No     | Developer-local overrides. Never committed.                          |
-| `.env.staging`         | ❌ No     | Staging values. Platform-managed; never committed.                   |
-| `.env.production`      | ❌ No     | Production values. Platform-managed; never committed.                |
-| `.env`                 | ❌ No     | Fallback defaults. Avoid for apps; may be used by scripts if needed. |
+| File              | Committed | Purpose                                                              |
+| ----------------- | --------- | -------------------------------------------------------------------- |
+| `.env.example`    | ✅ Yes    | Documents all variables with placeholder values. Required.           |
+| `.env.local`      | ❌ No     | Developer-local overrides. Never committed.                          |
+| `.env.staging`    | ❌ No     | Staging values. Platform-managed; never committed.                   |
+| `.env.production` | ❌ No     | Production values. Platform-managed; never committed.                |
+| `.env`            | ❌ No     | Fallback defaults. Avoid for apps; may be used by scripts if needed. |
 
 > **Rule**: If a variable is needed to run the project, it must appear in `.env.example`. No exceptions.
 
 ### File Locations
 
-Each app and package that consumes environment variables must have its own `.env.example` at its workspace root:
+A single `.env.example` lives at the **repository root** and documents all variables for all workspaces, organised into clearly labelled sections:
 
 ```
-apps/web/.env.example
-apps/mobile/.env.example
-apps/api/.env.example        # when API workspace is added
+.env.example            # ← single committed template for the entire monorepo
+.env.local              # ← developer-local overrides (git-ignored)
 ```
 
-Root-level `.env` files are only for scripts or tools that operate across the entire monorepo (e.g., CI helper scripts).
+Per-workspace section headers inside `.env.example` make it easy to know which variables belong to which app:
+
+```
+# apps/web — Next.js
+NEXT_PUBLIC_API_URL=http://localhost:4000
+DATABASE_URL=postgresql://...
+
+# apps/mobile — Expo / React Native
+EXPO_PUBLIC_API_URL=http://localhost:4000
+```
+
+Root-level `.env.local` (copied from `.env.example`) is the single developer override file. Apps load variables from it automatically via their respective runtimes.
 
 ### Load Precedence
 
@@ -118,12 +129,12 @@ Variables are loaded explicitly via `dotenv` or the hosting platform's environme
 
 ## Source of Truth per Environment
 
-| Environment | Source of truth                                               | Who manages it               |
-| ----------- | ------------------------------------------------------------- | ---------------------------- |
-| Local dev   | Developer's `.env.local`, copied from `.env.example`         | Developer                    |
-| CI          | Provider-injected secrets and variables (GitHub Actions)     | Repo maintainers             |
-| Staging     | Platform secret store / hosting provider config              | DevOps / maintainers         |
-| Production  | Platform secret store / hosting provider config              | DevOps / maintainers         |
+| Environment | Source of truth                                          | Who manages it       |
+| ----------- | -------------------------------------------------------- | -------------------- |
+| Local dev   | Developer's `.env.local`, copied from `.env.example`     | Developer            |
+| CI          | Provider-injected secrets and variables (GitHub Actions) | Repo maintainers     |
+| Staging     | Platform secret store / hosting provider config          | DevOps / maintainers |
+| Production  | Platform secret store / hosting provider config          | DevOps / maintainers |
 
 ## Security Guardrails
 
@@ -159,10 +170,11 @@ Staging and production values are managed entirely in the hosting platform (e.g.
 
 ## `.env.example` Policy
 
-- Every workspace that uses environment variables **must** have a `.env.example` file.
+- The repository has a **single `.env.example` at the root** that documents all variables for all workspaces.
 - Every new variable added to the codebase **must** be added to `.env.example` before the PR is merged.
 - `.env.example` values must be safe placeholders (e.g., `http://localhost:3000`, `change_me`, `your_key_here`).
 - `.env.example` is kept in sync with actual usage — stale entries must be removed.
+- Variables are organised into clearly labelled workspace sections within the single file.
 - PR reviewers must verify that any new `process.env.*` access has a corresponding entry in `.env.example`.
 
 ## Onboarding: Local Environment Setup
@@ -177,12 +189,10 @@ Staging and production values are managed entirely in the hosting platform (e.g.
    pnpm install
    ```
 
-2. Copy the example env files for each app you intend to run:
+2. Copy the root example env file to `.env.local`:
 
    ```bash
-   cp apps/web/.env.example apps/web/.env.local
-   cp apps/mobile/.env.example apps/mobile/.env.local
-   # cp apps/api/.env.example apps/api/.env.local  # when API is added
+   cp .env.example .env.local
    ```
 
 3. Open each `.env.local` file and replace placeholder values with real ones for your local environment. Values marked `# required` must be set before the app will start.
@@ -202,7 +212,7 @@ Staging and production values are managed entirely in the hosting platform (e.g.
 
 - [ ] Classify the variable (public / server / secret).
 - [ ] Choose a name following the naming conventions above.
-- [ ] Add it to the workspace's `.env.example` with a safe placeholder value and a comment.
+- [ ] Add it to the root `.env.example` with a safe placeholder value and a comment in the appropriate workspace section.
 - [ ] Add it to the CI environment (GitHub Actions secrets or variables).
 - [ ] Add it to staging and production environments in the hosting platform.
 - [ ] Document any non-obvious behaviour in a comment in `.env.example`.
@@ -210,13 +220,13 @@ Staging and production values are managed entirely in the hosting platform (e.g.
 
 ## Troubleshooting
 
-| Symptom                                | Likely Cause                                        | Fix                                                       |
-| -------------------------------------- | --------------------------------------------------- | --------------------------------------------------------- |
-| `undefined` for a `NEXT_PUBLIC_*` var  | Variable not set in the local `.env.local`          | Add it to `apps/web/.env.local`                           |
-| Variable available in server but not client | Missing `NEXT_PUBLIC_` / `EXPO_PUBLIC_` prefix | Rename the variable with the correct prefix               |
-| Build fails on CI with missing var     | Variable not added to GitHub Actions secrets/vars   | Add it under repository Settings → Secrets and variables  |
-| App crashes at startup with env error  | Required variable missing                           | Check `.env.example` for required vars and set them       |
-| Secret accidentally committed          | `.gitignore` entry missing or bypassed              | Revoke the secret immediately, rotate, then purge history |
+| Symptom                                     | Likely Cause                                      | Fix                                                       |
+| ------------------------------------------- | ------------------------------------------------- | --------------------------------------------------------- |
+| `undefined` for a `NEXT_PUBLIC_*` var       | Variable not set in `.env.local`                  | Add it to `.env.local` from the root `.env.example`       |
+| Variable available in server but not client | Missing `NEXT_PUBLIC_` / `EXPO_PUBLIC_` prefix    | Rename the variable with the correct prefix               |
+| Build fails on CI with missing var          | Variable not added to GitHub Actions secrets/vars | Add it under repository Settings → Secrets and variables  |
+| App crashes at startup with env error       | Required variable missing                         | Check root `.env.example` for required vars and set them  |
+| Secret accidentally committed               | `.gitignore` entry missing or bypassed            | Revoke the secret immediately, rotate, then purge history |
 
 ## Further Reading
 
