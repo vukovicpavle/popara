@@ -74,6 +74,15 @@ Follow the conventions in docs/ai/how-we-work.md.
 1. Read issue #42 and reproduction steps.
 2. Check `apps/api` request-parsing middleware for missing body validation.
 3. Classify and scope.
+4. Write triage summary comment on the issue.
+
+### Files Changed
+
+None — triage is analysis only; no code changes are made.
+
+### Verification
+
+Not applicable — no code was changed. CI was not run.
 
 ### Triage Summary
 
