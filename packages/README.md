@@ -2,7 +2,7 @@
 
 > Shared TypeScript libraries consumed by `apps/*` workspaces.
 
-This directory contains reusable packages that are internal to the monorepo. Each package is published as a workspace package (e.g., `@popara/<name>`) and referenced via `"workspace:*"` in consuming workspaces.
+This directory contains reusable packages that are internal to the monorepo. Each package is provided as a workspace package (e.g., `@popara/<name>`) and referenced via `"workspace:*"` in consuming workspaces.
 
 ## Available Packages
 

@@ -4,7 +4,7 @@
 
 ## Workspace Package
 
-**`tooling/config`** is provided as the `@popara/config` workspace package. All apps and packages extend their config from here.
+**`tooling/config`** is provided as the `@popara/config` workspace package. It supplies the shared Prettier options and TypeScript base compiler options used across the monorepo. Apps manage their own ESLint configs directly.
 
 ## Contents
 
@@ -24,9 +24,7 @@ The shared ESLint config (`@popara/config`) extends:
 - `plugin:@typescript-eslint/recommended`
 - `prettier` (disables formatting rules handled by Prettier)
 
-Individual workspaces extend this config and may add workspace-specific rules.
-
-> **Note:** `apps/web` and `apps/mobile` use ESLint 9 flat config (`eslint.config.mjs`), while `tooling/config` still uses ESLint 8 legacy format (`.eslintrc.json`).
+> **Note:** `apps/web` and `apps/mobile` use ESLint 9 flat config (`eslint.config.mjs`) with their own presets and do not extend `@popara/config`. The shared config is available for future workspaces that opt in to the legacy ESLint 8 format.
 
 ## Prettier
 
