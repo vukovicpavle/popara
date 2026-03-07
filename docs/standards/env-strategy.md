@@ -40,6 +40,8 @@ Rules:
 
 Avoid generic names like `SECRET`, `KEY`, or `TOKEN` without context — always qualify them (e.g., `STRIPE_SECRET_KEY`).
 
+> **`APP_ENV` vs `NODE_ENV`:** `NODE_ENV` is the Node.js/runtime mode (`development`, `test`, `production`) and controls which `.env.<NODE_ENV>` files are loaded by Next.js and Expo. `APP_ENV` represents the deployment stage (`local`, `staging`, `production`) and is shared across workspaces for runtime branching and logging — do not rely on it for framework-specific file-loading behaviour tied to `NODE_ENV`.
+
 ## File Conventions
 
 ### File Naming and Purpose
@@ -83,19 +85,25 @@ Variables are loaded in order — later files take precedence:
 
 **Next.js (apps/web)**
 
-```
-.env             → .env.local → .env.<NODE_ENV> → .env.<NODE_ENV>.local
-```
+Next.js loads the following files from the workspace directory (highest precedence first):
+
+1. `.env.<NODE_ENV>.local`
+2. `.env.local` (not applied in the `test` environment)
+3. `.env.<NODE_ENV>`
+4. `.env`
 
 See [Next.js docs](https://nextjs.org/docs/app/building-your-application/configuring/environment-variables) for full details.
 
 **Expo (apps/mobile)**
 
-```
-.env             → .env.local → .env.<NODE_ENV> → .env.<NODE_ENV>.local
-```
+Expo SDK 49+ loads the following files from the workspace directory (highest precedence first):
 
-Expo SDK 49+ loads variables at build time using `dotenv`. Only `EXPO_PUBLIC_*` variables are bundled into the client. Use [expo-constants](https://docs.expo.dev/versions/latest/sdk/constants/) or a custom `config/env.ts` module to access them.
+1. `.env.<NODE_ENV>.local`
+2. `.env.local`
+3. `.env.<NODE_ENV>`
+4. `.env`
+
+Only `EXPO_PUBLIC_*` variables are bundled into the client. Use [expo-constants](https://docs.expo.dev/versions/latest/sdk/constants/) or a custom `config/env.ts` module to access them.
 
 **API / Node services**
 
@@ -108,7 +116,7 @@ Variables are loaded explicitly via `dotenv` or the hosting platform's environme
 - Client-side variables **must** be prefixed with `NEXT_PUBLIC_`.
 - Server-side variables must not have the `NEXT_PUBLIC_` prefix.
 - Never pass server-only variables as props to client components.
-- Use `process.env.NEXT_PUBLIC_*` for public access and `process.env.*` only in Server Components, Route Handlers, or `getServerSideProps`.
+- Use `process.env.NEXT_PUBLIC_*` for public access and `process.env.*` only in Server Components or Route Handlers.
 
 ### Expo / React Native (`apps/mobile`)
 
@@ -139,7 +147,7 @@ Variables are loaded explicitly via `dotenv` or the hosting platform's environme
 
 ## Security Guardrails
 
-1. **No secrets in source control.** The root `.gitignore` ignores all `.env*` files except `.env.example` (including `.env`, `.env.local`, `.env.staging`, `.env.production`, and `.env.*.local`). Never override these rules.
+1. **No secrets in source control.** The root `.gitignore` ignores environment files including `.env`, `.env.local`, `.env.staging`, `.env.production`, and `.env.*.local`. If you introduce new `.env*` files, ensure they are added to `.gitignore` (only `.env.example` is intentionally committed). Never override these rules.
 2. **`.env.example` contains only placeholder values** — never real credentials, even for development.
 3. **Least privilege.** CI jobs receive only the secrets they need. Do not define all secrets in every workflow.
 4. **Secrets are not echoed.** CI pipelines must not `echo` or print secret variables. GitHub Actions masks secrets automatically, but avoid logging `process.env` objects.
@@ -193,14 +201,17 @@ Staging and production values are managed entirely in the hosting platform (e.g.
 2. Copy the root template into each workspace you intend to run:
 
    ```bash
+   # Web: copy the full template
    cp .env.example apps/web/.env.local
-   cp .env.example apps/mobile/.env.local
-   # cp .env.example apps/api/.env.local  # when API workspace is added
+
+   # Mobile: copy ONLY the EXPO_PUBLIC_* variables — server secrets must not
+   # be present in the mobile workspace env file (no server boundary in mobile)
+   grep '^EXPO_PUBLIC_' .env.example > apps/mobile/.env.local
+
+   # API: cp .env.example apps/api/.env.local  (when API workspace is added)
    ```
 
-   > Each file can be trimmed to keep only the variables relevant to that workspace, but leaving unused variables in place is harmless since each runtime ignores variables it doesn't recognise.
-
-3. Open each workspace's `.env.local` and replace placeholder values with real ones for your local environment. Values marked `# required` must be set before the app will start.
+3. Open each workspace's `.env.local` and replace placeholder values with real ones for your local environment. Variables marked `# required` are needed for full functionality and should be set before running the app.
 
 4. Obtain any secret values from a trusted team member or your team's shared secret manager. **Do not ask for secrets over unencrypted channels.**
 

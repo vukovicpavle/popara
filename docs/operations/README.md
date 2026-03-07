@@ -19,11 +19,14 @@ Environment variables are managed using `.env` files (never committed to source 
 
 ### Local Development
 
-Copy the root `.env.example` template into each workspace you intend to run, then fill in real values:
+Copy the root `.env.example` template into each workspace you intend to run, then fill in real values. For mobile, copy only the `EXPO_PUBLIC_*` variables to keep server secrets out of the mobile workspace:
 
 ```bash
+# Web: copy the full template
 cp .env.example apps/web/.env.local
-cp .env.example apps/mobile/.env.local
+
+# Mobile: only copy public Expo vars — server secrets must not be in mobile
+grep '^EXPO_PUBLIC_' .env.example > apps/mobile/.env.local
 ```
 
 > Next.js reads `.env*` files from `apps/web/` and Expo reads from `apps/mobile/`. A root-level `.env.local` is not automatically picked up by either runtime.
