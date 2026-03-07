@@ -9,6 +9,11 @@ build/
 out/
 *.tsbuildinfo
 
+# Expo
+.expo/
+android/
+ios/
+
 # Turbo
 .turbo/
 

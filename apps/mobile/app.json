@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Popara",
+    "slug": "popara",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "popara",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.popara.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.popara.app"
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
