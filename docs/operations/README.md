@@ -6,14 +6,14 @@ Deployment, environment configuration, monitoring, and incident response.
 
 ## Environment Configuration
 
-Environment variables are managed per-workspace using `.env` files (never committed to source control).
+Environment variables are managed per-workspace using `.env` files (never committed to source control) for local and development environments.
 
-| File              | Purpose                                    |
-| ----------------- | ------------------------------------------ |
-| `.env.local`      | Local developer overrides (git-ignored)    |
-| `.env.example`    | Documented template — commit this          |
-| `.env.production` | Production values — managed via CI secrets |
+| File           | Purpose                                 |
+| -------------- | --------------------------------------- |
+| `.env.local`   | Local developer overrides (git-ignored) |
+| `.env.example` | Documented template — commit this       |
 
+Production environment variables are configured in the hosting/CI platform's secret store, not in `.env` files.
 ## Deployment
 
 > Deployment pipelines are planned. This section will document:
