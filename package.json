@@ -7,12 +7,17 @@
     "build": "turbo build",
     "lint": "turbo lint",
     "format": "prettier --check .",
-    "typecheck": "turbo typecheck"
+    "typecheck": "turbo typecheck",
+    "prepare": "husky",
+    "commitlint": "commitlint"
   },
   "engines": {
     "node": "^20.19.0 || ^22.13.0 || >=24"
   },
   "devDependencies": {
+    "@commitlint/cli": "20.4.3",
+    "@commitlint/config-conventional": "20.4.3",
+    "husky": "9.1.7",
     "prettier": "^3.8.1",
     "turbo": "^2.8.13"
   },

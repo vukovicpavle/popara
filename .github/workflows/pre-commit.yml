@@ -1,0 +1,42 @@
+name: Pre-commit
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  commitlint:
+    name: Commitlint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.30.3
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.19.x
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate commit messages (pull request)
+        if: github.event_name == 'pull_request'
+        run: pnpm exec commitlint --from "${{ github.event.pull_request.head.sha }}^" --to "${{ github.event.pull_request.head.sha }}" --verbose
+
+      - name: Validate commit messages (push)
+        if: github.event_name == 'push'
+        run: pnpm exec commitlint --from "${{ github.event.before }}" --to "${{ github.event.after }}" --verbose
