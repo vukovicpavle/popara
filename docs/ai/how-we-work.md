@@ -29,15 +29,15 @@ popara/
 
 ## Toolchain
 
-| Tool       | Version / Command               | Notes                            |
-| ---------- | ------------------------------- | -------------------------------- | -------- | --- | ----- | -------------------------------- |
+| Tool       | Version / Command               | Notes                                                                 |
+| ---------- | ------------------------------- | --------------------------------------------------------------------- |
 | Node.js    | `^20.19.0                       |                                  | ^22.13.0 |     | >=24` | `engine-strict=true` in `.npmrc` |
-| pnpm       | `10.30.3`                       | Use pnpm; never npm or yarn      |
-| Turborepo  | root `turbo.json`               | Fan-out for lint/build/typecheck |
-| TypeScript | per-workspace `tsconfig.json`   | Extends `tsconfig.base.json`     |
-| ESLint     | per-workspace `.eslintrc`       | Extends `@popara/config`         |
-| Prettier   | root `.prettierrc` (if present) | `pnpm format` at root            |
-| Commitlint | `commitlint.config.mjs`         | Conventional Commits enforced    |
+| pnpm       | `10.30.3`                       | Use pnpm; never npm or yarn                                           |
+| Turborepo  | root `turbo.json`               | Fan-out for lint/build/typecheck                                      |
+| TypeScript | per-workspace `tsconfig.json`   | Extends `tsconfig.base.json`                                          |
+| ESLint     | per-workspace `.eslintrc`       | Extends `eslint:recommended`, `plugin:@typescript-eslint/recommended`, `prettier` via `tooling/config/.eslintrc.json` |
+| Prettier   | root `.prettierrc` (if present) | `pnpm format` at root                                                 |
+| Commitlint | `commitlint.config.mjs`         | Conventional Commits enforced                                         |
 
 ---
 
