@@ -21,7 +21,7 @@ Each major workspace has its own landing page:
 | --------- | --------------------------------------------------- | ----------------------------------------- |
 | Web       | [`apps/web/README.md`](../apps/web/README.md)       | Next.js web application                   |
 | Mobile    | [`apps/mobile/README.md`](../apps/mobile/README.md) | Expo / React Native mobile app            |
-| API       | `apps/api/README.md`                                | Backend API service _(planned)_           |
+| API       | API _(planned)_                                     | Backend API service _(planned)_           |
 | Packages  | [`packages/README.md`](../packages/README.md)       | Shared libraries                          |
 | Tooling   | [`tooling/README.md`](../tooling/README.md)         | Shared lint, TypeScript, and build config |
 

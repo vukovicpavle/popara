@@ -6,8 +6,8 @@
 
 | Technology   | Version | Notes                             |
 | ------------ | ------- | --------------------------------- |
-| Expo SDK     | 53+     |                                   |
-| React Native | 0.79+   |                                   |
+| Expo SDK     | 55+     |                                   |
+| React Native | 0.83+   |                                   |
 | React        | 19      |                                   |
 | TypeScript   | 5+      | strict mode                       |
 | ESLint       | 9       | flat config (`eslint.config.mjs`) |
@@ -17,14 +17,14 @@
 From the repo root:
 
 ```bash
-pnpm --filter mobile start   # Start Expo dev server
+pnpm --filter mobile dev    # Start Expo dev server
 pnpm --filter mobile lint    # Lint
 ```
 
 Or from this directory:
 
 ```bash
-pnpm start
+pnpm dev
 pnpm lint
 ```
 

@@ -17,8 +17,8 @@ This directory contains reusable packages that are internal to the monorepo. Eac
      "name": "@popara/<name>",
      "version": "0.0.0",
      "private": true,
-     "main": "./src/index.ts",
-     "types": "./src/index.ts"
+     "main": "./dist/index.js",
+     "types": "./dist/index.d.ts"
    }
    ```
 3. Add a `tsconfig.json` that extends the root `tsconfig.base.json`.

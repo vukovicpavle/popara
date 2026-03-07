@@ -24,17 +24,17 @@ popara/
 
 ## Tech Stack Summary
 
-| Layer           | Technology                             |
-| --------------- | -------------------------------------- |
-| Web frontend    | Next.js 16, React 19, TypeScript       |
-| Mobile          | Expo SDK 53+, React Native, TypeScript |
-| API             | _(planned)_                            |
-| Shared packages | TypeScript                             |
-| Task runner     | Turborepo                              |
-| Package manager | pnpm 10                                |
-| Linting         | ESLint 9 (flat config)                 |
-| Formatting      | Prettier                               |
-| Type checking   | TypeScript (strict)                    |
+| Layer           | Technology                                                      |
+| --------------- | --------------------------------------------------------------- |
+| Web frontend    | Next.js 16, React 19, TypeScript                                |
+| Mobile          | Expo SDK 55+, React Native, TypeScript                          |
+| API             | _(planned)_                                                     |
+| Shared packages | TypeScript                                                      |
+| Task runner     | Turborepo                                                       |
+| Package manager | pnpm 10                                                         |
+| Linting         | ESLint (9 flat config in apps; legacy config in tooling/config) |
+| Formatting      | Prettier                                                        |
+| Type checking   | TypeScript (strict)                                             |
 
 ## Workspace Docs
 

@@ -4,7 +4,7 @@
 
 ## Workspace Package
 
-**`tooling/config`** is published as the `@popara/config` workspace package. All apps and packages extend their config from here.
+**`tooling/config`** is provided as the `@popara/config` workspace package. All apps and packages extend their config from here.
 
 ## Contents
 
@@ -38,7 +38,9 @@ Prettier options are defined in `tooling/config/.prettierrc`. Run `pnpm format` 
 
 - `strict: true`
 - `incremental: true`
-- `moduleResolution: bundler` (for web/mobile) — workspaces may override as needed.
+- `moduleResolution: node`
+
+Web and mobile apps (e.g. `apps/web` and `apps/mobile`) may override `moduleResolution` to `bundler` in their own `tsconfig.json` files as needed.
 
 Each workspace has its own `tsconfig.json` that extends either `tsconfig.base.json` (root) or `tooling/config/tsconfig.base.json`.
 

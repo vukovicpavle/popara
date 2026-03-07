@@ -46,7 +46,7 @@ pnpm --filter web build
 pnpm --filter web lint
 
 # Mobile
-pnpm --filter mobile start
+pnpm --filter mobile dev
 
 # All workspaces via Turborepo
 pnpm dev
@@ -65,7 +65,7 @@ pnpm typecheck
 ## Debugging
 
 - Web: use browser DevTools and the Next.js dev server (`pnpm --filter web dev`).
-- Mobile: use Expo Go or a simulator (`pnpm --filter mobile start`).
+- Mobile: use Expo Go or a simulator (`pnpm --filter mobile dev`).
 - TypeScript errors: `pnpm typecheck` reports all type errors across workspaces.
 
 ## CI/CD
