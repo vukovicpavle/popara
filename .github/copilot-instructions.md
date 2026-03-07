@@ -13,14 +13,14 @@
 | `docs/`     | Documentation (including AI guidance)      |
 
 - **Package manager**: pnpm `10.30.3` — never use npm or yarn.
-- **Task runner**: Turborepo — use `pnpm <script>` at the root; turbo fans out to workspaces.
+- **Task runner**: Turborepo — root scripts like `pnpm dev`, `pnpm build`, `pnpm lint`, and `pnpm typecheck` run via Turbo and fan out to workspaces; `pnpm format` runs `prettier --check .` at the root (not a Turbo task).
 - **Node**: `^20.19.0 || ^22.13.0 || >=24` (engine-strict is on).
 
 ## Non-Negotiable Rules
 
 1. **Never force-push, reset `--hard`, or rebase shared branches** without explicit human approval.
 2. **Never modify files outside the stated scope** of a task.
-3. **Run the full validation suite before declaring done**: `pnpm lint && pnpm format && pnpm typecheck`.
+3. **Run the full validation suite before declaring done**: `pnpm lint && pnpm format && pnpm typecheck` (run all commands from the repo root).
 4. **All commits must follow Conventional Commits** — see [Commit Convention](#commit-convention).
 5. **Do not introduce new dependencies** without checking for known vulnerabilities first.
 6. **Ask before performing any destructive or high-impact operation** (schema migrations, mass renames, API removals).
