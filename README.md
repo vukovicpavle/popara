@@ -116,6 +116,18 @@ Commit messages are validated:
 - **Locally** via the `commit-msg` Git hook (runs automatically after `pnpm install`)
 - **In CI** via the `Pre-commit` GitHub Actions workflow on every push and pull request
 
+## AI-Assisted Development
+
+This repository includes agent guidelines for AI-assisted development.
+See [`docs/ai/README.md`](./docs/ai/README.md) for the full index, or jump straight to a playbook:
+
+- [Implement a feature](./.github/skills/implement-feature.md)
+- [Fix a bug](./.github/skills/fix-bug.md)
+- [Write tests](./.github/skills/write-tests.md)
+- [Update docs](./.github/skills/update-docs.md)
+- [Safe refactor](./.github/skills/safe-refactor.md)
+- [Triage an issue](./.github/skills/issue-triage.md)
+
 ## Tech Stack
 
 - **Workspace manager**: [pnpm](https://pnpm.io/)
