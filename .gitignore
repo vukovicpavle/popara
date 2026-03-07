@@ -17,10 +17,12 @@ ios/
 # Turbo
 .turbo/
 
-# Environment
+# Environment — never commit real env files (only .env.example is safe to commit)
 .env
 .env.local
 .env.*.local
+.env.staging
+.env.production
 
 # Logs
 *.log

@@ -23,6 +23,24 @@ cd popara
 pnpm install
 ```
 
+## Environment Setup
+
+The repository ships a single `.env.example` at the root that documents every required variable across all workspaces. Copy it into each workspace directory you intend to run — Next.js and Expo read `.env*` files from their own workspace directory, not from the monorepo root.
+
+For mobile, copy only the `EXPO_PUBLIC_*` variables to keep server secrets out of the mobile workspace:
+
+```bash
+# Web: copy the full template
+cp .env.example apps/web/.env.local
+
+# Mobile: only copy public Expo vars — server secrets must not be in mobile
+grep '^EXPO_PUBLIC_' .env.example > apps/mobile/.env.local
+```
+
+Open each `.env.local` and replace the placeholder values. Variables marked `# required` are needed for full functionality and should be set before running the app. Obtain any secret values from a team member or your team's shared secret manager.
+
+> See [docs/standards/env-strategy.md](../standards/env-strategy.md) for the full environment variable policy, naming conventions, and security rules.
+
 ## Running the Project
 
 ```bash

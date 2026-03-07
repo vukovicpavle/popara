@@ -93,5 +93,6 @@ Commit messages are validated locally via the Husky `commit-msg` hook and in CI 
 
 ## Further Reading
 
+- [Environment Variable Strategy](./env-strategy.md)
 - [Development guide](../development/README.md)
 - [Architecture](../architecture/README.md)
