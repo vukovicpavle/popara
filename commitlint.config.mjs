@@ -1,21 +1,21 @@
 /** @type {import('@commitlint/types').UserConfig} */
 export default {
-  extends: ['@commitlint/config-conventional'],
+  extends: ["@commitlint/config-conventional"],
   rules: {
-    'scope-enum': [
+    "scope-enum": [
       2,
-      'always',
+      "always",
       [
-        'web',
-        'mobile',
-        'api',
-        'packages',
-        'tooling',
-        'docs',
-        'repo',
-        'config',
-        'deps',
-        'release',
+        "web",
+        "mobile",
+        "api",
+        "packages",
+        "tooling",
+        "docs",
+        "repo",
+        "config",
+        "deps",
+        "release",
       ],
     ],
   },

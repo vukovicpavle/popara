@@ -60,33 +60,33 @@ This repository enforces [Conventional Commits](https://www.conventionalcommits.
 
 ### Types
 
-| Type       | Description                                        |
-| ---------- | -------------------------------------------------- |
-| `feat`     | A new feature                                      |
-| `fix`      | A bug fix                                          |
-| `chore`    | Maintenance tasks (deps, build scripts, etc.)      |
-| `docs`     | Documentation-only changes                         |
-| `style`    | Code style changes (formatting, whitespace)        |
-| `refactor` | Code changes that are neither a fix nor a feature  |
-| `perf`     | Performance improvements                           |
-| `test`     | Adding or updating tests                           |
-| `ci`       | CI/CD configuration changes                        |
-| `revert`   | Reverts a previous commit                          |
+| Type       | Description                                       |
+| ---------- | ------------------------------------------------- |
+| `feat`     | A new feature                                     |
+| `fix`      | A bug fix                                         |
+| `chore`    | Maintenance tasks (deps, build scripts, etc.)     |
+| `docs`     | Documentation-only changes                        |
+| `style`    | Code style changes (formatting, whitespace)       |
+| `refactor` | Code changes that are neither a fix nor a feature |
+| `perf`     | Performance improvements                          |
+| `test`     | Adding or updating tests                          |
+| `ci`       | CI/CD configuration changes                       |
+| `revert`   | Reverts a previous commit                         |
 
 ### Scopes
 
-| Scope      | Area of the repository          |
-| ---------- | ------------------------------- |
-| `web`      | Web application (`apps/web`)    |
-| `mobile`   | Mobile application              |
-| `api`      | API service (`apps/api`)        |
-| `packages` | Shared packages (`packages/`)   |
-| `tooling`  | Tooling config (`tooling/`)     |
-| `docs`     | Documentation (`docs/`)         |
-| `repo`     | Repository-level configuration  |
-| `config`   | Shared configuration package    |
-| `deps`     | Dependency updates              |
-| `release`  | Release-related changes         |
+| Scope      | Area of the repository         |
+| ---------- | ------------------------------ |
+| `web`      | Web application (`apps/web`)   |
+| `mobile`   | Mobile application             |
+| `api`      | API service (`apps/api`)       |
+| `packages` | Shared packages (`packages/`)  |
+| `tooling`  | Tooling config (`tooling/`)    |
+| `docs`     | Documentation (`docs/`)        |
+| `repo`     | Repository-level configuration |
+| `config`   | Shared configuration package   |
+| `deps`     | Dependency updates             |
+| `release`  | Release-related changes        |
 
 Scope is optional. Commits without a scope are allowed.
 
