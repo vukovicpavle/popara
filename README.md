@@ -11,6 +11,18 @@
 └── docs/        # Documentation
 ```
 
+## Documentation
+
+| Resource                                            | Description                            |
+| --------------------------------------------------- | -------------------------------------- |
+| [Documentation hub](./docs/README.md)               | Central index for all project docs     |
+| [Getting started](./docs/getting-started/README.md) | Prerequisites, installation, first run |
+| [Architecture](./docs/architecture/README.md)       | System design and workspace overview   |
+| [Development](./docs/development/README.md)         | Workflows, branching, debugging        |
+| [Standards](./docs/standards/README.md)             | Coding conventions and review criteria |
+| [Operations](./docs/operations/README.md)           | Deployment and environment config      |
+| [Contributing to docs](./docs/contributing.md)      | When and how to update documentation   |
+
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) v20.19+ (or v22.13+, or v24+)
