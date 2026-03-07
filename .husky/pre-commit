@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+# Next.js can switch this import to .next/dev during `next dev`.
+# Normalize it before commit to avoid noisy diffs.
+if [ -f "apps/web/next-env.d.ts" ]; then
+	perl -0pi -e 's#"\./\.next/dev/types/routes\.d\.ts"#"./.next/types/routes.d.ts"#g' apps/web/next-env.d.ts
+	git add apps/web/next-env.d.ts
+fi
