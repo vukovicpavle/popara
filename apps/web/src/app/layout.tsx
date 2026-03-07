@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "Popara web application",
 };
 
-export default function RootLayout({
+export default function Layout({
   children,
 }: {
   children: React.ReactNode;
