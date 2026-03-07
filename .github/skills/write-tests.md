@@ -93,5 +93,5 @@ Follow the conventions in docs/ai/how-we-work.md.
 
 ### Risks & Assumptions
 
-- Used `vi` (Vitest) — assumed that is the test runner in this workspace based on existing devDependencies.
+- Used the existing test runner via `pnpm --filter @popara/utils test`.
 ```
