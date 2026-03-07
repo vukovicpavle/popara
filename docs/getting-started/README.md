@@ -23,6 +23,19 @@ cd popara
 pnpm install
 ```
 
+## Environment Setup
+
+Each app ships a `.env.example` file that documents every required variable. Copy it to `.env.local` and fill in your local values before starting any app:
+
+```bash
+cp apps/web/.env.example apps/web/.env.local
+cp apps/mobile/.env.example apps/mobile/.env.local
+```
+
+Open each `.env.local` file and replace the placeholder values. Variables marked `# required` must be set before the app will start. Obtain any secret values from a team member or your team's shared secret manager.
+
+> See [docs/standards/env-strategy.md](../standards/env-strategy.md) for the full environment variable policy, naming conventions, and security rules.
+
 ## Running the Project
 
 ```bash

@@ -35,4 +35,5 @@ Use [templates/new-doc.md](./templates/new-doc.md) as a starting point when addi
 
 - [Root README](../README.md)
 - [Commit convention](./standards/README.md#commit-convention)
+- [Environment variable strategy](./standards/env-strategy.md)
 - [Pre-merge checklist](./ai/README.md#pre-merge-checklist)

@@ -6,14 +6,33 @@ Deployment, environment configuration, monitoring, and incident response.
 
 ## Environment Configuration
 
-Environment variables are managed per-workspace using `.env` files (never committed to source control) for local and development environments.
+Environment variables are managed per-workspace using `.env` files (never committed to source control) for local development. See [docs/standards/env-strategy.md](../standards/env-strategy.md) for the complete policy.
 
-| File           | Purpose                                 |
-| -------------- | --------------------------------------- |
-| `.env.local`   | Local developer overrides (git-ignored) |
-| `.env.example` | Documented template — commit this       |
+### File Conventions
 
-Production environment variables are configured in the hosting/CI platform's secret store, not in `.env` files.
+| File              | Committed | Purpose                                              |
+| ----------------- | --------- | ---------------------------------------------------- |
+| `.env.example`    | ✅ Yes    | Documented template — every workspace must have one  |
+| `.env.local`      | ❌ No     | Developer-local overrides                            |
+| `.env.staging`    | ❌ No     | Staging values — platform-managed                    |
+| `.env.production` | ❌ No     | Production values — platform-managed                 |
+
+### Local Development
+
+Copy `.env.example` to `.env.local` in each workspace you intend to run, then fill in real values:
+
+```bash
+cp apps/web/.env.example apps/web/.env.local
+cp apps/mobile/.env.example apps/mobile/.env.local
+```
+
+### CI
+
+Secrets and variables are injected by GitHub Actions at workflow runtime. They are stored under **Settings → Secrets and variables → Actions** in the repository. Workflows reference them as `${{ secrets.NAME }}` (sensitive) or `${{ vars.NAME }}` (non-sensitive).
+
+### Production / Staging
+
+Production and staging environment variables are configured in the hosting platform's secret store (e.g., Vercel, Render, Fly.io). They are never stored in `.env` files or committed to source control.
 
 ## Deployment
 
