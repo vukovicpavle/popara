@@ -19,7 +19,7 @@ Coding conventions, commit rules, review criteria, and quality expectations acro
 | Entity                 | Convention         | Example                       |
 | ---------------------- | ------------------ | ----------------------------- |
 | Source files           | `kebab-case`       | `user-service.ts`             |
-| React components       | `PascalCase`       | `UserCard.tsx`                |
+| React components       | `kebab-case`       | `user-card.tsx`               |
 | Variables / functions  | `camelCase`        | `getUserById`                 |
 | Module-level constants | `UPPER_SNAKE_CASE` | `MAX_RETRY_COUNT`             |
 | Types / Interfaces     | `PascalCase`       | `UserProfile`, `IUserService` |

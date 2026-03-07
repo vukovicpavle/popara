@@ -14,6 +14,7 @@ Environment variables are managed per-workspace using `.env` files (never commit
 | `.env.example` | Documented template — commit this       |
 
 Production environment variables are configured in the hosting/CI platform's secret store, not in `.env` files.
+
 ## Deployment
 
 > Deployment pipelines are planned. This section will document:
