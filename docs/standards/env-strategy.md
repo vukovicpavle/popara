@@ -195,7 +195,7 @@ Staging and production values are managed entirely in the hosting platform (e.g.
    cp .env.example .env.local
    ```
 
-3. Open each `.env.local` file and replace placeholder values with real ones for your local environment. Values marked `# required` must be set before the app will start.
+3. Open the root `.env.local` file and replace placeholder values with real ones for your local environment. Values marked `# required` must be set before the app will start.
 
 4. Obtain any secret values from a trusted team member or your team's shared secret manager. **Do not ask for secrets over unencrypted channels.**
 
