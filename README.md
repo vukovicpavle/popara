@@ -13,7 +13,7 @@
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) v18+
+- [Node.js](https://nodejs.org/) v20.19+ (or v22.13+, or v24+)
 - [pnpm](https://pnpm.io/) v10+
 
 ## Getting Started
