@@ -13,6 +13,7 @@
     "node": "^20.19.0 || ^22.13.0 || >=24"
   },
   "dependencies": {
+    "@popara/env": "workspace:*",
     "expo": "~55.0.5",
     "expo-status-bar": "~55.0.4",
     "react": "^19.2.4",
