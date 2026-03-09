@@ -9,7 +9,7 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "lint": "tsc --noEmit",
+    "lint": "eslint src --ext .ts",
     "typecheck": "tsc --noEmit"
   },
   "engines": {
