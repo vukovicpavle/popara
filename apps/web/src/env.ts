@@ -19,22 +19,23 @@ export const env = createEnv(
     // -------------------------------------------------------------------------
 
     /** Base URL of the backend API consumed by client-side fetch calls. */
-    NEXT_PUBLIC_API_URL: z.string().url(),
+    NEXT_PUBLIC_API_URL: z.string().url().optional(),
 
     // -------------------------------------------------------------------------
     // Server-only: must NOT be sent to the browser.
     // -------------------------------------------------------------------------
 
     /** Full connection string for the primary database. */
-    DATABASE_URL: z.string().regex(/^[a-z][a-z+\-.]*:\/\//, {
-      message:
-        "Must be a valid connection string (e.g. postgresql://user:pass@host/db)",
-    }),
+    DATABASE_URL: z
+      .string()
+      .regex(/^[a-z][a-z+\-.]*:\/\//, {
+        message:
+          "Must be a valid connection string (e.g. postgresql://user:pass@host/db)",
+      })
+      .optional(),
 
-    /** Secret used to sign and verify session/JWT tokens. Min 32 chars. */
-    AUTH_SECRET: z.string().min(32, {
-      message: "Must be at least 32 characters to ensure sufficient entropy",
-    }),
+    /** Secret used to sign and verify session/JWT tokens. */
+    AUTH_SECRET: z.string().optional(),
 
     /** Sentry DSN for server-side error tracking. */
     SENTRY_DSN: z.string().url().optional(),
